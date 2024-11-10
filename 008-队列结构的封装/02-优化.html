@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 队列
+        class Queue {
+            // 存储队列信息
+            #items = {};
+            // 队头索引
+            #lowCount = 0;
+            // 队尾索引
+            #count = 0;
+
+            // 出队列
+            dequeue() {
+            }
+            // 入队列
+            enqueue(data) {
+                this.#items[this.#count] = data;
+                this.#count++;
+            }
+            // front 获取队头元素
+            front() {
+            }
+            // 队列的大小
+            size() {
+            }
+            // 判断队列是否为空
+            isEmpty() {
+            }
+
+            // 清空队列
+            clear() {
+            }
+
+            // 转换为字符串
+            toString() {
+            }
+        }
+
+        let queue = new Queue();
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(45);
+        queue.enqueue(112);
+        queue.enqueue(121);
+        queue.enqueue(1231);
+        queue.enqueue(1321);
+    </script>
+</body>
+
+</html>
