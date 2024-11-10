@@ -54,14 +54,32 @@
         }
 
         let stack = new Stack();
-        // console.log(stack.#items);
-        stack.push(1);
-        stack.push(1);
-        stack.push(1);
-        stack.push(1);
-        stack.push(1);
-        stack.push(1);
-        stack.push(1)
+        // 十进制转二进制
+        function covert(decNumber) {
+            // 创建栈实例
+            let remStack = new Stack();
+            // 保存传入的十进制数字
+            let number = decNumber;
+            // 用于存放字符串
+            let string = '';
+
+            while (number > 0) {
+                // 将余数压入栈中
+                remStack.push(number % 2);
+                // 将商保存下来 以供下次循环使用
+                number = Math.floor(number / 2);
+            }
+
+
+            while (!(remStack.isEmpty())) {
+                // 拿出栈中元素 并赋值给string变量
+                string += remStack.pop();
+            }
+            // 返回转换后的结果
+            return string;
+        }
+        console.log(covert(50));
+
 
     </script>
 </body>
