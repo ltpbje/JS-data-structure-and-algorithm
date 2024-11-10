@@ -8,7 +8,62 @@
 </head>
 
 <body>
+    <script>
+        //push添加一个元素到栈顶
+        // pop出栈
+        //peek返回栈顶
 
+
+        // isEmpty()
+        // clear()
+        // size()
+        // tostring()
+        class Stack {
+            #items = [];
+            // pop出栈
+            pop() {
+                this.#items.pop();
+            }
+            //push添加一个元素到栈顶
+            push(data) {
+                this.#items.push(data);
+            }
+            // peek返回栈顶元素
+            peek() {
+                // return this.#items[this.#items.length - 1];
+                return this.#items.at(-1);
+            }
+            // 栈的大小
+            size() {
+                return this.#items.length;
+            }
+            // 判断栈是否为空
+            isEmpty() {
+                return this.#items.length === 0 ? true : false;
+            }
+
+            // 清空栈
+            clear() {
+                this.#items = [];
+            }
+
+            // 转换为字符串
+            toString() {
+                return this.#items.join(',');
+            }
+        }
+
+        let stack = new Stack();
+        // console.log(stack.#items);
+        stack.push(1);
+        stack.push(1);
+        stack.push(1);
+        stack.push(1);
+        stack.push(1);
+        stack.push(1);
+        stack.push(1)
+
+    </script>
 </body>
 
 </html>
