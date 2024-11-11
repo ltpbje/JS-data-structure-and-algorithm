@@ -11,7 +11,7 @@
     <script>
         // 队列
         class Queue {
-            // 存储队列信息
+            // 存储队列信息  此处用对象存储队列 是为了删除的时候 相比较于数组的删除更加节省性能
             #items = {};
             // 队头索引
             #lowCount = 0;
@@ -20,6 +20,18 @@
 
             // 出队列
             dequeue() {
+                // 如果队列为空 则 直接中断出队操作
+                if (this.isEmpty()) {
+                    return undefined;
+                }
+                // 获取队头元素 存入变量中 用于取出
+                let res = this.#items[this.#lowCount];
+                // 删除队头元素
+                delete this.#items[this.#lowCount];
+                // 队头元素索引加一
+                this.#lowCount++;
+                // 返回出队列的元素
+                return res;
             }
             // 入队列
             enqueue(data) {
@@ -28,24 +40,44 @@
             }
             // front 获取队头元素
             front() {
+                return this.#items[this.#lowCount];
             }
             // 队列的大小
             size() {
+                return this.#count - this.#lowCount;
             }
             // 判断队列是否为空
             isEmpty() {
+                return this.size() === 0;
             }
 
             // 清空队列
             clear() {
+                // 队列信息清空
+                this.#items = {};
+                // 队头索引 归零
+                this.#lowCount = 0;
+                // 队尾索引 归零
+                this.#count = 0;
             }
 
             // 转换为字符串
             toString() {
+                // 声明一个空字符串变量
+                let str = '';
+                // 遍历从 头部索引 his.#lowCount到 队尾索引 this.#count 之间的元素，将每个元素添加到str中
+                for (let i = this.#lowCount; i < this.#count; i++) {
+                    str += `${this.#items[i]},`;
+                }
+                // 删除字符串str的最后一个字符
+                str = str.slice(0, -1);
+                return str;
             }
         }
 
         let queue = new Queue();
+
+
         queue.enqueue(1);
         queue.enqueue(2);
         queue.enqueue(3);
