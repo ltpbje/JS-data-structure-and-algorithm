@@ -34,12 +34,41 @@
                 return res;
             }
             // 从队头添加
-            addFront() {
+            addFront(data) {
+                //1.如果为空
+                if (this.isEmpty()) {
+                    // 如果队列为空，直接调用 addBack 方法添加元素
+                    this.addBack(data);
+                } else {
+                    // 2.lowCount>0 队头索引大于 0 
+                    if (this.#lowCount > 0) {
+                        this.#lowCount --;
+                        this.#items[this.#lowCount] = data;
+                    } else {
+                        // 队头索引小于等于 0   索引不能为负值 所以只能 在添加的时候将 添加前的 队列元素 全部后移 一位
+                        for (let i = this.#count; i > 0; i--) {
+                            this.#items[i] = this.#items[i - 1];
+                        }
+                        this.#items[0] = data;
+                        this.#count++;
+                    }
 
+                }
             }
             // 从队尾删除
             removeBack() {
-
+                //1.如果为空
+                if (this.isEmpty()) {
+                    return;
+                }
+                // 队尾索引 减1
+                this.#count --;
+                // 保存一下队尾元素 用于返回
+                const res = this.#items[this.#count];
+                // 删除队尾元素
+                delete this.#items[this.#count];
+                // 返回队尾元素
+                return res;
             }
             // 入队尾
             addBack(data) {
@@ -52,7 +81,11 @@
             }
             // 获取队尾元素
             peekBack() {
-
+                //1.如果为空
+                if (this.isEmpty()) {
+                    return;
+                }
+                return this.#items[this.#count - 1];
             }
             // 队列的大小
             size() {
@@ -86,7 +119,12 @@
                 return str;
             }
         }
-
+        const dequeue = new DeQueue();
+        dequeue.addBack(1);
+        dequeue.addBack(12131);
+        dequeue.addBack(121311);
+        dequeue.addBack(121);
+        dequeue.addBack(12131134);
     </script>
 </body>
 
