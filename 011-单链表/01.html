@@ -46,11 +46,36 @@
                 // 链表的元素个数  加1
                 this.count++;
             }
+
+            // 指定位置删除
+            removeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let current = this.head;
+                    if (index == 0) {
+                        this.head = this.head.next;
+                    } else {
+                        let previous;
+                        for (let i = 0; i < index; i++) {
+                            // 找到对应位置
+                            previous = current;
+                            // 要删除的元素
+                            current = current.next;
+                        }
+                        previous.next = current.next;
+                    }
+                    // 删除成功之后 让 count值减1
+                    this.count--;
+                    // 返回 被删除的元素内容
+                    return current.element;
+                }
+            }
         }
         const list = new LinkedList();
-        list.push(213);
-        list.push(213);
-        list.push(213);
+        list.push(213000);
+        list.push(2103);
+        list.push(11213);
+        list.push(23);
+        list.push(2131);
     </script>
 </body>
 
