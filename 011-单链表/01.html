@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 节点
+        class Node {
+            constructor(element) {
+                // 元素值
+                this.element = element;
+                // 指向下一个元素
+                this.next = null;
+            }
+        }
+
+        // 单链表
+        class LinkedList {
+            constructor() {
+                // 链表的元素个数
+                this.count = 0;
+                // 表头的节点
+                this.head = null;
+            }
+            // push 添加元素
+            push(element) {
+                // 创建单链表元素
+                const node = new Node(element);
+                // head为空
+                if (this.head === null) {
+                    this.head = node;
+                } else {
+                    let current = this.head;
+                    while (current.next !== null) {
+                        // 沿着单链表头一直向后找 直到找到 单链表最后的元素
+                        current = current.next;
+                    }
+                    // 将单链表元素 加到单链表的最后
+                    current.next = node;
+                }
+                // 链表的元素个数  加1
+                this.count++;
+            }
+        }
+        const list = new LinkedList();
+        list.push(213);
+        list.push(213);
+        list.push(213);
+    </script>
+</body>
+
+</html>
