@@ -79,14 +79,37 @@
                 }
                 return;
             }
+            equalFn(a, b) {
+                return JSON.stringify(a) == JSON.stringify(b);
+            }
+            // 找到内容相符的节点索引
+            indexOf(element) {
+                // 从头节点找起
+                let current = this.head;
+                for (let i = 0; i < this.count; i++) {
+                    // 直到找到匹配的节点
+                    if (this.equalFn(element, current.element)) {
+                        return i;
+                    }
+                    current = current.next;
+                }
+                return -1;
+            }
+            // 根据数据内容删除节点 
+            remove(element) {
+                // 利用自己封装的indexOf方法 找到对应索引
+                const index = this.indexOf(element);
+                // 删除对应索引的元素
+                this.removeAt(index);
+            }
 
         }
         const list = new LinkedList();
-        list.push(213000);
-        list.push(2103);
-        list.push(11213);
-        list.push(23);
-        list.push(2131);
+        list.push(200);
+        list.push(300);
+        list.push(100);
+        list.push(200);
+        list.push(200);
     </script>
 </body>
 
