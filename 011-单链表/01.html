@@ -55,12 +55,10 @@
                         this.head = this.head.next;
                     } else {
                         let previous;
-                        for (let i = 0; i < index; i++) {
-                            // 找到对应位置
-                            previous = current;
-                            // 要删除的元素
-                            current = current.next;
-                        }
+                        // 找到对应位置前一个元素
+                        previous = this.getNodeAt(index - 1);
+                        // 要删除的元素
+                        current = previous.next;
                         previous.next = current.next;
                     }
                     // 删除成功之后 让 count值减1
@@ -68,7 +66,20 @@
                     // 返回 被删除的元素内容
                     return current.element;
                 }
+                return;
             }
+            // 获取指定索引的节点
+            getNodeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let node = this.head;
+                    for (let i = 0; i < index; i++) {
+                        node = node.next;
+                    }
+                    return node;
+                }
+                return;
+            }
+
         }
         const list = new LinkedList();
         list.push(213000);
