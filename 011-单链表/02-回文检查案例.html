@@ -155,6 +155,29 @@
         // list.push({ a: 100 });
         // list.push(200);
     </script>
+    <script>
+        // double-ended queue
+        const dequeue = new LinkedList();
+        function test(str) {
+            // 转换为小写 并去除 所有空格
+            const lowstr = str.toLocaleLowerCase().split(' ').join('');
+            let dequeue = new LinkedList();
+            for (let i = 0; i < lowstr.length; i++) {
+                dequeue.push(lowstr[i]);
+            }
+            // console.log(dequeue);
+            // 是否是回文
+            let isEqual = true;
+            while (dequeue.size() > 1) {
+                if (dequeue.removeAt(dequeue.size() - 1) !== dequeue.removeAt(0)) {
+                    isEqual = false;
+                    break;
+                }
+            }
+            return isEqual;
+        }
+        test(' D a   d');
+    </script>
 </body>
 
 </html>
