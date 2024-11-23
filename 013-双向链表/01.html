@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
     <script>
         // 节点
         class Node {
@@ -149,39 +148,54 @@
                 return this.count;
             }
         }
-        // const list = new LinkedList();
-
-
+        // list.push({ a: 100 });
+        // list.push(200);
     </script>
 
     <script>
-        function covert(decNumber, base) {
-            // 创建栈实例
-            let remStack = new LinkedList();
-            // 保存传入的十进制数字
-            let number = decNumber;
-            // 用于存放字符串
-            let string = '';
-            let baseString = '0123456789ABCDEF';
-            while (number > 0) {
-                // 将余数压入栈中
-                remStack.push(number % base);
-                // 将商保存下来 以供下次循环使用
-                number = Math.floor(number / base);
+        // 双向链表节点
+        class DoublyNode extends Node {
+            constructor(element) {
+                super(element);
+                // 前一个元素指针
+                this.prev = null;
             }
-
-
-            while (!(remStack.isEmpty())) {
-                // // 拿出栈中元素 并赋值给string变量
-                // string += remStack.pop();
-                // 拿出栈中元素 并赋值给string变量
-                // 通过取出的元素作为索引 来确定对应的字符串
-                string += baseString[remStack.removeAt(remStack.size() - 1)];
-            }
-            // 返回转换后的结果
-            return string;
         }
-        console.log(covert(123, 2));
+        // 双向链表
+        class DoublyLinkedList extends LinkedList {
+            constructor() {
+                super();
+                // 尾指针
+                this.tail = null;
+            }
+
+            push(element) {
+                const node = new DoublyNode(element);
+                // prev next
+                if (this.head === null) {
+                    this.head = node;
+                    this.tail = node;
+                } else {
+                    this.tail.next = node;
+                    node.prev = this.tail;
+                    this.tail = node;
+                }
+                this.count++;
+            }
+            insert() {
+
+            }
+
+            removeAt() { }
+            getHead() {
+                return this.head;
+            }
+            getTail() {
+                return this.tail;
+            }
+        }
+
+        const list = new DoublyLinkedList()
     </script>
 </body>
 
