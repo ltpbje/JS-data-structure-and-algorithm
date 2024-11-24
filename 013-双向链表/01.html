@@ -182,11 +182,72 @@
                 }
                 this.count++;
             }
-            insert() {
-
+            // 在指定位置插入元素
+            insert(element, index) {
+                if (index >= 0 && index <= this.count) {
+                    const node = new DoublyNode(element);
+                    let current = this.head;
+                    if (index === 0) {
+                        if (this.head === null) {
+                            // 链表头为空时
+                            this.head = node;
+                            this.tail = node;
+                        } else {
+                            // 链表头不为空时
+                            node.next = this.head;
+                            this.head.prev = node;
+                            this.head = node;
+                        }
+                    } else if (index === this.count) {
+                        //  在链表尾部添加元素
+                        node.prev = this.tail;
+                        this.tail.next = node;
+                        this.tail = node;
+                    } else {
+                        // 在链表中间插入元素
+                        const previous = this.getNodeAt(index - 1);
+                        current = previous.next;
+                        previous.next = node;
+                        node.prev = previous;
+                        node.next = current;
+                        current.prev = node;
+                    }
+                    this.count++;
+                    return true;
+                }
+                return false;
             }
 
-            removeAt() { }
+            removeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let current = this.head;
+                    if (index === 0) {
+                        // 删除链表头元素
+                        this.head = this.head.next;
+                        if (this.count === 1) {
+                            this.tail = null;
+                        } else {
+                            this.head.prev = null;
+                        }
+                    } else if (index === this.count - 1) {
+                        // 删除链表尾元素
+                        current = this.tail;
+                        this.tail = this.tail.prev;
+                        this.tail.next = null;
+                    } else {
+                        // 删除链表中间的元素
+                        let previous = this.getNodeAt(index - 1);
+                        current = previous.next;
+                        previous.next = current.next;
+                        current.next.prev = previous;
+                    }
+                    this.count--;
+                    // 返回被删除元素
+                    return current.element;
+                }
+                return;
+
+            }
             getHead() {
                 return this.head;
             }
@@ -195,7 +256,11 @@
             }
         }
 
-        const list = new DoublyLinkedList()
+        const list = new DoublyLinkedList();
+        list.push(100);
+        list.push(200);
+        list.push(300);
+        // list.push(400); 
     </script>
 </body>
 
