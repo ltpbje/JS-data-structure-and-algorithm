@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 节点
+        class Node {
+            constructor(element) {
+                // 元素值
+                this.element = element;
+                // 指向下一个元素
+                this.next = null;
+            }
+        }
+
+        // 单链表
+        class LinkedList {
+            constructor() {
+                // 链表的元素个数
+                this.count = 0;
+                // 表头的节点
+                this.head = null;
+            }
+            // push 添加元素
+            push(element) {
+                // 创建单链表元素
+                const node = new Node(element);
+                // head为空
+                if (this.head === null) {
+                    this.head = node;
+                } else {
+                    let current = this.head;
+                    while (current.next !== null) {
+                        // 沿着单链表头一直向后找 直到找到 单链表最后的元素
+                        current = current.next;
+                    }
+                    // 将单链表元素 加到单链表的最后
+                    current.next = node;
+                }
+                // 链表的元素个数  加1
+                this.count++;
+            }
+
+            // 指定位置删除
+            removeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let current = this.head;
+                    if (index == 0) {
+                        this.head = this.head.next;
+                    } else {
+                        let previous;
+                        // 找到对应位置前一个元素
+                        previous = this.getNodeAt(index - 1);
+                        // 要删除的元素
+                        current = previous.next;
+                        previous.next = current.next;
+                    }
+                    // 删除成功之后 让 count值减1
+                    this.count--;
+                    // 返回 被删除的元素内容
+                    return current.element;
+                }
+                return;
+            }
+            // 获取指定索引的节点
+            getNodeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let node = this.head;
+                    for (let i = 0; i < index; i++) {
+                        node = node.next;
+                    }
+                    return node;
+                }
+                return;
+            }
+            equalFn(a, b) {
+                // return a === b
+                //1.判断是对象，对象1[key]===对象2[key]
+                //2．之前基础上，写一个递归函数，深度检查是否相等
+                return JSON.stringify(a) == JSON.stringify(b);
+
+                // imumutable（kerwin React视频）
+            }
+            // 找到内容相符的节点索引
+            indexOf(element) {
+                // 从头节点找起
+                let current = this.head;
+                for (let i = 0; i < this.count; i++) {
+                    // 直到找到匹配的节点
+                    if (this.equalFn(element, current.element)) {
+                        return i;
+                    }
+                    current = current.next;
+                }
+                return -1;
+            }
+            // 根据数据内容删除节点 
+            remove(element) {
+                // 利用自己封装的indexOf方法 找到对应索引
+                const index = this.indexOf(element);
+                // 删除对应索引的元素
+                this.removeAt(index);
+            }
+            // 在指定位置插入元素
+            insert(element, index) {
+                if (index >= 0 && index <= this.count) {
+                    // 创建一个新的节点，将element作为参数传入
+                    let node = new Node(element);
+                    if (index === 0) {
+                        // 获取 当前链表 表头节点
+                        const current = this.head;
+                        // 将当前节点的下一个节点赋值给新节点的下一个节点
+                        node.next = current;
+                        // 将新节点赋值给头节点
+                        this.head = node;
+                    } else {
+                        // 获取当前节点的前一个节点
+                        const previous = this.getNodeAt(index - 1);
+                        // 获取当前节点的前一个节点的下一个节点
+                        const current = previous.next;
+
+                        // 将当前节点的下一个节点指向当前节点的前一个节点的下一个节点
+                        node.next = current;
+                        // 将当前节点的前一个节点的下一个节点指向当前节点
+                        previous.next = node;
+                        // 实现插入节点
+                    }
+                    // 增加计数器
+                    this.count++;
+                    // 插入成功后 返回true
+                    return true;
+                }
+                // index 不符合要求 插入失败 返回 false
+                return false;
+            }
+            // 判断链表是否为空
+            isEmpty() {
+                return this.count === 0;
+            }
+            // 返回链表的长度
+            size() {
+                return this.count;
+            }
+        }
+        // list.push({ a: 100 });
+        // list.push(200);
+    </script>
+
+    <script>
+        class CirularLinkedList extends LinkedList {
+            constructor() {
+                super();
+            }
+            push(element) {
+                const node = new Node(element);
+                let current;
+                if (this.head === null) {
+                    this.head = node;
+                } else {
+                    current = this.getNodeAt(this.size() - 1);
+                    current.next = node;
+                }
+                node.next = this.head;
+                this.count++;
+                return true;
+            }
+
+
+            insert(element, index) {
+                if (index >= 0 && index <= this.count) {
+                    const node = new Node(element);
+                    let current;
+                    if (index === 0) {
+                        if (this.head === null) {
+                            this.head = node;
+                            node.next = this.head;
+                        } else {
+                            node.next = this.head;
+                            current = this.getNodeAt(this.size() - 1);
+                            this.head = node;
+                            current.next = this.head;
+                        }
+                    } else {
+                        const previous = this.getNodeAt(index - 1);
+                        node.next = previous.next;
+                        previous.next = node;
+                    }
+                    this.count++;
+                    return true;
+                }
+                return false;
+            }
+
+            removeAt(index) {
+                if (index >= 0 && index < this.count) {
+                    let current = this.head;
+                    if (index === 0) {
+                        if (this.count === 1) {
+
+                            this.head = null;
+                        } else {
+                            // 最后一个元素
+                            const last = this.getNodeAt(this.count - 1);
+                            this.head = this.head.next;
+                            last.next = this.head;
+                        }
+                    } else {
+                        const previous = this.getNodeAt(index - 1);
+                        current = previous.next;
+                        previous.next = current.next;// 如果删的是最后一个也不怕，current.next 是head
+                    }
+                    this.count--;
+                    return current.element;
+                }
+                return undefined;
+            }
+        }
+        const list = new CirularLinkedList();
+        list.push(100);
+        list.push(200);
+        list.push(300);
+    </script>
+</body>
+
+</html>
