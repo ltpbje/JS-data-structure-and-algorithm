@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 单值集合
+        // 没有重复的值
+        class KerwinSet {
+            items = {};
+            add(element) {
+                if (!this.has(element)) {
+                    this.items[element] = element;
+                    return true;
+                }
+                return false;
+            }
+            // 删除指定元素
+            delete(element) {
+                if (this.has(element)) {
+                    delete this.items[element];
+                    return true;
+                }
+                return false;
+            }
+            clear() {
+                this.items = {};
+            }
+            size() {
+                return Object.keys(this.items).length;
+            }
+            has(element) {
+                return element in this.items;
+            }
+            values() {
+                return Object.values(this.items);
+            }
+        }
+        var myset = new KerwinSet();
+        myset.add(100);
+        myset.add(100);
+        myset.add(200);
+    </script>
+</body>
+
+</html>
