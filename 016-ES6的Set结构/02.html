@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let mysetA = new Set([1, 2, 3]);
+        let mysetB = new Set([2, 3, 4, 5]);
+        // 取并集
+        // let myset = new Set([...mysetA, ...mysetB]);
+        // console.log(myset);
+
+        // 取交集
+        // let myset = new Set([...mysetA].filter(item => mysetB.has(item)));
+        // console.log(myset);
+
+        // 取差集
+        // 在集合B中 而不在集合A中 的元素
+        let myset = new Set([...mysetB].filter(item => !mysetA.has(item)));
+        console.log(myset);
+
+    </script>
+
+</body>
+
+</html>
