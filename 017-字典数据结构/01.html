@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Dictionary {
+            table = {};
+            toStrFn(item) {
+                if (item === null) {
+                    return 'NULL';
+                } else if (item === undefined) {
+                    return 'UNDEFINED';
+                } else if (typeof item === 'string' || item instanceof String) {
+                    return item;
+                }
+                return JSON.stringify(item);
+            }
+
+            hasKey(key) {
+                return this.table[this.toStrFn(key)] != null;
+            }
+            // 设置值
+            set(key, value) {
+                if (key != null && value != null) {
+                    // 将key转化为 相对应格式的 字符串
+                    const tableKey = this.toStrFn(key);
+                    this.table[tableKey] = new ValuePair(key, value);//保留原来的key
+                    return true;
+                }
+                return false;
+            }
+            // 获取对应的值
+            get(key) {
+                const valuePair = this.table[this.toStrFn(key)];
+                return valuePair == null ? null : valuePair.value;
+            }
+            // 删除对应的值
+            remove(key) {
+                if (this.hasKey(key)) {
+                    delete this.table[this.toStrFn(key)];
+                    return true;
+                }
+                return false;
+            }
+            keys() {
+                return this.keyValues().map(item => item.key);
+            }
+            values() {
+                return this.keyValues().map(item => item.value);
+            }
+            keyValues() {
+                // 返回this.table对象的所有属性值
+                return Object.values(this.table);
+            }
+            size() {
+                return Object.keys(this.table).length;
+            }
+
+            isEmpty() {
+                return this.size() === 0;
+            }
+            clear() {
+                this.table = {};
+            }
+            foreach(cb) {
+                const valuePair = this.keyValues();
+                for (let i = 0; i < valuePair.length; i++) {
+                    cb(valuePair[i].key, valuePair[i].value);
+                }
+            }
+
+
+
+        }
+        class ValuePair {
+            constructor(key, value) {
+                this.key = key;
+                this.value = value;
+            }
+        }
+        const mymap = new Dictionary();
+        mymap.set({ a: 1 }, 100);
+        mymap.set({ a: 2 }, 200);
+        mymap.set(3, 300);
+        mymap.foreach((key, value) => {
+            console.log(key, value);
+        })
+    </script>
+
+</body>
+
+</html>

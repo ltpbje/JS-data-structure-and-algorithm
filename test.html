@@ -27,41 +27,18 @@
 </head>
 
 <body>
-    <div class="progress-ring">
-        <svg viewBox="0 0 100 100">
-            <circle class="circle" cx="50" cy="50" r="40"></circle>
-            <circle class="progress" cx="50" cy="50" r="40"></circle>
-        </svg>
-    </div>
-    <input type="number" id="percentageInput" placeholder="输入百分比（0-100）">
-    <button onclick="updateProgress()">更新进度</button>
-
     <script>
-        function updateProgress() {
-            const percentageInput = document.getElementById('percentageInput');
-            const percentage = parseInt(percentageInput.value, 10);
-            /*--1. 补全代码，当输入的数据不是数字，或者超出【0,100】,当前函数返回null-----*/
-            if (('' + (+percentageInput.value)) !== 'NaN') {
-                if (percentageInput.value < 0 || percentageInput.value > 100) {
-                    return null;
-                }
-            } else {
-                return null;
-            }
+        // var a = 10;
+        // (function b() {
 
+        //     console.log(a);
+        // })();
 
-            const progressRing = document.querySelector('.progress-ring');
-            const progressCircle = progressRing.querySelector('.progress');
-            const circumference = 2 * Math.PI * 40;
-            console.log(circumference);
-
-
-            /*--2. 补全代码，根据输入的百分比设置圆环样式-----*/
-            const offset = (percentageInput.value / 100) * circumference;
-            // progressCircle.style.strokeDasharray = `${offset} , ${circumference}`;
-            progressCircle.style.strokeDasharray = `${offset} , ${100}`;
+        function a() {
+            a = 34;
+            console.log(a);   // 打印结果是34
         }
-
+        a() 
     </script>
 
 
