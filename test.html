@@ -28,17 +28,17 @@
 
 <body>
     <script>
-        // var a = 10;
-        // (function b() {
-
-        //     console.log(a);
-        // })();
-
-        function a() {
-            a = 34;
-            console.log(a);   // 打印结果是34
-        }
-        a() 
+        var i = 1;
+        var i = 2;
+        var add = function () {
+            var i = 0;
+            return function () {
+                i++;
+                console.log(i);
+            };
+        }();
+        add();
+        add();
     </script>
 
 

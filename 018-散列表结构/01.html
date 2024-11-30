@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Dictionary {
+            table = {};
+            toStrFn(item) {
+                if (item === null) {
+                    return 'NULL';
+                } else if (item === undefined) {
+                    return 'UNDEFINED';
+                } else if (typeof item === 'string' || item instanceof String) {
+                    return item;
+                }
+                return JSON.stringify(item);
+            }
+            // 根据key生成hash数
+            // hashCode(key) {
+            //     if (typeof key === 'number') {
+            //         return key;
+            //     }
+            //     const tableKey = this.toStrFn(key);
+            //     let hash = 0;
+            //     for (let i = 0; i < tableKey.length; i++) {
+            //         // 将tableKey的第i个字符的Unicode编码值加到hash上
+            //         hash += tableKey.charCodeAt(i);
+            //     }
+            //     return hash % 37;
+            // }
+            hashCode(key) {
+                const tableKey = this.toStrFn(key);
+                let hash = 5381;
+                for (let i = 0; i < tableKey.length; i++) {
+                    hash = (hash * 33) + tableKey.charCodeAt(i);
+                }
+                return hash % 1013;
+            }
+
+            set(key, value) {
+                if (key != null && value != null) {
+                    const position = this.hashCode(key);
+                    this.table[position] = new ValuePair(key, value);
+                    return true;
+                }
+                return false;
+            }
+            get(key) {
+                const valuePair = this.table[this.hashCode(key)];
+                return valuePair == null ? undefined : valuePair.value;
+            }
+            remove(key) {
+                const valuePair = this.table[this.hashCode(key)];
+                if (valuePair != null) {
+                    delete this.table[this.hashCode(key)];
+                    return true;
+                }
+                return false;
+            }
+
+
+        }
+        class ValuePair {
+            constructor(key, value) {
+                this.key = key;
+                this.value = value;
+            }
+        }
+        const mymap = new Dictionary();
+        mymap.set('tiechui', 'aaa');
+        mymap.set('Jack', 'bbb');
+        mymap.set('1', 100);
+        mymap.set({ a: 1 }, 200);
+        mymap.set({ a: 2 }, 200);
+        // mymap.set(3, 300);
+        // mymap.foreach((key, value) => {
+        //     console.log(key, value);
+        // })
+    </script>
+
+</body>
+
+</html>
