@@ -111,7 +111,27 @@
                 }
                 return current;
             }
-            sear;
+            // 查找指定的值
+            search(key) {
+                return this.searchNode(this.root, key);
+            }
+            searchNode(node, key) {
+                if (node === null) {
+                    return false;
+                }
+                if (this.compareFn(key, node.key) === Compare.less) {
+                    // key值小于当前节点的值时候
+                    return this.searchNode(node.left, key);
+
+                } else if (this.compareFn(key, node.key) === Compare.bigger) {
+                    // key值大于当前节点的值时候
+                    return this.searchNode(node.right, key);
+                } else {
+                    return true;
+                }
+
+            }
+
         }
         const mytree = new BST();
         mytree.insert(100);
@@ -122,6 +142,7 @@
 
         console.log(mytree.min());
         console.log(mytree.max());
+        console.log(mytree.search(120));
     </script>
 </body>
 
