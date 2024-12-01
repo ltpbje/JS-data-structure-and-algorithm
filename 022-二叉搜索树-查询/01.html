@@ -88,6 +88,30 @@
                     callback(node.key);
                 }
             }
+
+            // 查询最小值
+            min() {
+                return this.minCode(this.root);
+            }
+            minCode(node) {
+                let current = node;
+                while (current != null && current.left != null) {
+                    current = current.left;
+                }
+                return current;
+            };
+            // 查询最大值
+            max() {
+                return this.maxCode(this.root);
+            }
+            maxCode(node) {
+                let current = node;
+                while (current != null && current.right != null) {
+                    current = current.right;
+                }
+                return current;
+            }
+            sear;
         }
         const mytree = new BST();
         mytree.insert(100);
@@ -96,20 +120,8 @@
         mytree.insert(90);
         mytree.insert(110);
 
-        // 中序遍历
-        // mytree.inOrderMap((val) => {
-        //     console.log(val);
-
-        // });
-        // 先序遍历
-        // mytree.preOrderMap((val) => {
-        //     console.log(val);
-
-        // })
-        // 后序遍历
-        mytree.pastOrderMap((val) => {
-            console.log(val);
-        })
+        console.log(mytree.min());
+        console.log(mytree.max());
     </script>
 </body>
 
