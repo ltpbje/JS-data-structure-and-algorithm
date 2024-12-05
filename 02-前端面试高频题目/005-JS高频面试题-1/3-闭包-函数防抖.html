@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" class="myinp">
+
+    <script>
+        const myinp = document.querySelector('.myinp');
+
+        // 未做防抖处理
+        // myinp.oninput = function () {
+        //     console.log(1);
+        // };
+        myinp.oninput = (function () {
+            let timer = null;
+            return function (ev) {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                timer = setTimeout(() => {
+                    console.log('向后端发送了请求', ev.target.value);
+                }, 1000);
+            };
+
+        })();
+    </script>
+</body>
+
+</html>
