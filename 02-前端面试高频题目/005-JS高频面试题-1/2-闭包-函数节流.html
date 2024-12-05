@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // window.onresize = function () {
+        //     // 未做节流  会一直触发 就像水龙头一直开着 我们需要节约水流 要做节流
+        //     // console.log('改变echart');
+        // }
+
+
+        // 节流 
+        window.onresize = (function () {
+            let date = Date.now();
+            return function () {
+                if (Date.now() - date > 1000) {
+                    date = Date.now();
+                    // 一秒钟以内只会执行一次
+                    console.log('改变echart');
+                }
+            };
+        })()
+    </script>
+</body>
+
+</html>
