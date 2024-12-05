@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // // concat
+        // const arr1 = [1, 2, 3];
+        // const arr2 = [2, 3, 4, 5];
+        // const newArr = arr1.concat(arr2); // 不会去除重复的数组元素
+        // console.log(newArr);
+
+        // // [...a, ...b]展开运算符
+        // const arr1 = [1, 2, 3];
+        // const arr2 = [2, 3, 4, 5];
+        // const newArr = [...arr1, ...arr2];// 不会去除重复的数组元素
+        // console.log(newArr);
+
+        // [a, b].flat()
+        const arr1 = [1, 2, 3];
+        const arr2 = [2, 3, 4, 5];
+        // flat() 方法创建一个新的数组，并根据指定深度递归地将所有子数组元素拼接到新的数组中。
+        const newArr = [arr1, arr2].flat();// 不会去除重复的数组元素
+        console.log([1, 2, 3, [3, 4, [2, 3]]].flat());
+
+        console.log(newArr);
+
+    </script>
+</body>
+
+</html>
