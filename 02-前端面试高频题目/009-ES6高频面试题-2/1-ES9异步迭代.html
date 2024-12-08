@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function timer(t) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(t);
+                }, t);
+            });
+        }
+
+        const arr = [timer(1000), timer(1000), timer(1000)];
+        async function fn() {
+            for (let item of arr) {
+                console.log(item);
+            }
+        }
+        fn();
+    </script>
+</body>
+
+</html>

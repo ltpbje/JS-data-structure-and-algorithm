@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function ajax(data) {
+            return new Promise(reslove => {
+                reslove(data);
+            });
+        }
+
+        // 定义一个异步生成器函数gen
+        async function* gen() {
+            // 使用yield关键字，异步地调用ajax函数，并传入参数11
+            yield ajax(11);
+            // 使用yield关键字，异步地调用ajax函数，并传入参数22
+            yield ajax(22);
+            yield ajax(33);
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [1, 2, 3];
+        console.log(arr);
+        // 创建一个迭代器对象，用于遍历数组arr
+        let i = arr[Symbol.iterator]();
+        // console.log(i.next());
+        // console.log(i.next());
+        // console.log(i.next());
+        for (let i of arr) {
+            console.log(i);
+        }
+
+        function ajax(data) {
+            return new Promise(reslove => {
+                reslove(data);
+            });
+        }
+        // 定义一个生成器函数gen
+        function* gen() {
+            // 使用yield关键字，将ajax函数的返回值作为生成器的返回值
+            yield ajax(11);
+            yield ajax(22);
+            yield ajax(33);
+        }
+
+        // 创建一个生成器对象g
+        let g = gen();
+        // for (let item of g) {
+        //     console.log(item);
+        // }
+        g.next().value.then(res => {
+            console.log(res);
+        });
+        g.next().value.then(res => {
+            console.log(res);
+        });
+        // console.log(g.next());
+        // console.log(g.next());
+        // console.log(g.next());
+
+    </script>
+</body>
+
+</html>
