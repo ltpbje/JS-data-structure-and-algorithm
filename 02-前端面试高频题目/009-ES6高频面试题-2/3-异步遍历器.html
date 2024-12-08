@@ -25,6 +25,41 @@
             yield ajax(33);
         }
 
+        const g = gen();
+        // g.next().then(res => {
+        //     console.log(res);
+        //     return g.next();
+        // }).then(res => {
+        //     console.log(res);
+        //     return g.next();
+        // }).then(res => {
+        //     console.log(res);
+        //     return g.next();
+        // }).then(res => {
+        //     console.log(res);
+        //     return g.next();
+        // });
+        // async function fn() {
+        //     const res1 = await g.next();
+        //     console.log(res1);
+
+        //     const res2 = await g.next();
+        //     console.log(res2);
+
+        //     const res3 = await g.next();
+        //     console.log(res3);
+
+        // }
+
+        // fn();
+
+        async function fn() {
+            let list = [g.next(), g.next(), g.next()];
+            for await (let i of list) {
+                console.log(i);
+            }
+        }
+        fn()
 
     </script>
 </body>
