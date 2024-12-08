@@ -26,15 +26,26 @@
 
         const g = gen();
         async function fn() {
-            // const arr = [g.next(), g.next(), g.next()];
+            const arr = [g.next(), g.next(), g.next()];
             // const arr = [g, g, g];
             // 会将整个代码块暂停执行  上一个代码块执行完毕才会执行下一个代码块
-            for await (let item of gen()) {
+            for await (let item of arr) {
                 console.log("start", Date.now());
                 console.log(item);
                 console.log("end", Date.now());
             }
         }
+        // const g = gen();
+        // async function fn() {
+        //     // const arr = [g.next(), g.next(), g.next()];
+        //     // const arr = [g, g, g];
+        //     // 会将整个代码块暂停执行  上一个代码块执行完毕才会执行下一个代码块
+        //     for await (let item of gen()) {
+        //         console.log("start", Date.now());
+        //         console.log(item);
+        //         console.log("end", Date.now());
+        //     }
+        // }
         fn();
     </script>
 </body>
