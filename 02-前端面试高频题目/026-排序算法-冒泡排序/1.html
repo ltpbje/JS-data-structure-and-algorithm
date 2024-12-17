@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function bubbleSort(array) {
+            const { length } = array;
+            for (let i = 0; i < length; i++) {
+                // 每次比完之后最大的数会到数组的末尾  每比较i次就可以少比较i个元素
+                for (let j = 0; j < length - 1 - i; j++) {
+                    if (array[j] > array[j + 1]) {
+                        swap(array, j, j + 1);
+                    }
+                }
+            }
+            console.log(array);
+
+        }
+        // 交换位置
+        function swap(array, a, b) {
+            const temp = array[a];
+            array[a] = array[b];
+            array[b] = temp;
+            // [array[a], array[b]] = [array[b], array[a]];
+        }
+
+
+        bubbleSort([2, 3, 1, 9, 4, 5, 6]);
+        29, 10, 14, 37, 14
+    </script>
+</body>
+
+</html>
