@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function selectionSort(arr) {
+            let { length } = arr;
+            let indexMin;
+            for (let i = 0; i < length - 1; i++) {
+                indexMin = i;
+                for (let j = i; j < length; j++) {
+                    if (arr[indexMin] > arr[j]) {
+                        indexMin = j;
+                    }
+                }
+                if (indexMin !== i) {
+                    // 将最小的元素交换到数组最前面
+                    swap(arr, indexMin, i);
+                }
+            }
+            console.log(arr);
+
+        }
+
+        // 交换位置
+        function swap(array, a, b) {
+            const temp = array[a];
+            array[a] = array[b];
+            array[b] = temp;
+            // [array[a], array[b]] = [array[b], array[a]];
+        }
+        selectionSort([2, 3, 1, 9, 4, 5, 6]);
+    </script>
+</body>
+
+</html>
