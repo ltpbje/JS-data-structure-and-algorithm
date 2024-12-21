@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+     * 快速排序函数
+     * @param {Array} arr - 需要排序的数组
+     * @returns {Array} - 排序后的数组
+     */
+        function quickSort(arr) {
+            // 获取数组的长度
+            const { length } = arr;
+            // 如果数组长度小于2，直接返回数组
+            if (length < 2) {
+                return arr;
+            }
+            // 选择数组的第一个元素作为基准值
+            let base = arr[0];
+            // 创建一个新数组，包含所有小于等于基准值的元素
+            const minArr = arr.slice(1).filter(item => item <= base);
+            // 创建一个新数组，包含所有大于基准值的元素
+            const maxArr = arr.slice(1).filter(item => item > base);
+            // 递归地对小于等于基准值的子数组和大于基准值的子数组进行排序
+            // 然后将排序后的子数组与基准值连接起来，返回最终的排序结果
+            return quickSort(minArr).concat(base).concat(quickSort(maxArr));
+        }
+        // 调用 quickSort 函数并打印结果
+        console.log(quickSort([2, 3, 1, 9, 4, 5, 6]));
+
+    </script>
+</body>
+
+</html>
