@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //     // 声明一个空数组
+        // var arr = [];
+        // // 在数组的索引5处赋值为1
+        // arr[5] = 1;
+        // // 在数组的索引3处赋值为1
+        // arr[3] = 1;
+        // // 在数组的索引7处赋值为1
+        // arr[7] = 1;
+        // // 在数组的索引1处赋值为1
+        // arr[1] = 1;
+        // // 使用forEach遍历数组，输出的索引是按从小到大的顺序来排列的
+        // arr.forEach((item, index) => {
+        //     // 输出数组中的元素及其索引
+        //     console.log(item, index);
+        // 
+        // });
+        var arr = [5, 7, 5, 4, 9, 1];
+        function countSort(arr) {
+            if (arr.length < 2) {
+                return arr;
+            }
+            // const maxValue = Math.max(...arr);
+            const maxValue = findMax(arr);
+            const counts = new Array(maxValue);
+            console.log(counts);
+
+        }
+        countSort(arr);
+
+        function findMax(arr) {
+            let max = arr[0];
+            for (let i = 0; i < arr.length; i++) {
+                if (max < arr[i]) {
+                    max = arr[i];
+                }
+            }
+            // console.log(max);
+
+            return max;
+
+        }
+    </script>
+</body>
+
+</html>
