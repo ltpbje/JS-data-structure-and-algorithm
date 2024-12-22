@@ -9,19 +9,29 @@
 
 <body>
     <script>
+        /**
+   * 插入排序算法
+   * @param {Array} arr - 待排序的数组
+   */
         function insertSort(arr) {
+            // 获取数组的长度
             const { length } = arr;
+            // 从第二个元素开始遍历数组
             for (let i = 1; i < length; i++) {
+                // 保存当前元素的值
                 const temp = arr[i];
+                // 从当前元素的前一个位置开始向前遍历
                 let j = i;
+                // 当j大于0且前一个元素大于当前元素时，将前一个元素向后移动一位
                 while (j > 0 && arr[j - 1] > temp) {
                     arr[j] = arr[j - 1];
                     j--;
                 }
+                // 将当前元素插入到正确的位置
                 arr[j] = temp;
             }
+            // 输出排序后的数组
             console.log(arr);
-
         }
 
         /** i = 1   j=1 
