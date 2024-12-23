@@ -23,11 +23,38 @@
                 divider *= base;
             }
             console.log(arr);
+            return arr;
 
         }
         radixSort(arr);
     </script>
 
+
+    <script>
+        // 在 Redux 中定义一个 action 和 reducer
+        const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
+
+        const fetchDataSuccess = (data) => ({
+            type: FETCH_DATA_SUCCESS,
+            payload: data,
+        });
+
+        const dataReducer = (state = {}, action) => {
+            switch (action.type) {
+                case FETCH_DATA_SUCCESS:
+                    return { ...state, data: action.payload };
+                default:
+                    return state;
+            }
+        };
+
+        // 在 Redux thunk 中请求数据
+        export const fetchData = () => async (dispatch) => {
+            const response = await apiService.getData();
+            dispatch(fetchDataSuccess(response.data));
+        };
+
+    </script>
 </body>
 
 </html>
