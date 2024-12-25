@@ -27,35 +27,50 @@
             return quickSort(minArr).concat(base).concat(quickSort(maxArr));
         }
 
+        // 定义一个名为 binarySearch 的函数，用于在一个已排序的数组中查找特定的元素
+        // find: 要查找的元素
+        // arr: 要查找的数组
+        // start: 查找范围的起始索引，默认为 0
+        // end: 查找范围的结束索引，默认为数组的长度减 1
         function binarySearch(find, arr, start, end) {
+            // 如果 start 未定义，则将其设置为 0
             start = start || 0;
+            // 如果 end 未定义，则将其设置为数组的长度减 1
             end = end || arr.length - 1;
+            // 对数组进行快速排序
             arr = quickSort(arr);
+            // 打印排序后的数组
             console.log(arr);
 
+            // 如果查找范围有效，且要查找的元素在范围内
             if (start <= end && find >= arr[start] && find <= arr[end]) {
+                // 如果起始元素就是要查找的元素，返回起始索引
                 if (arr[start] === find) {
                     return start;
                 }
+                // 如果结束元素就是要查找的元素，返回结束索引
                 if (arr[end] === find) {
                     return end;
                 }
+                // 计算中间索引
                 let mid = Math.ceil((end + start) / 2);
-                // console.log(mid);
-
+                // 如果中间元素就是要查找的元素，返回中间索引
                 if (arr[mid] === find) {
                     return mid;
                 } else if (arr[mid] > find) {
+                    // 如果中间元素大于要查找的元素，在左半部分继续查找
                     return binarySearch(find, arr, start, mid - 1);
                 } else {
+                    // 如果中间元素小于要查找的元素，在右半部分继续查找
                     return binarySearch(find, arr, mid + 1, end);
                 }
             }
+            // 如果未找到元素，返回 -1
             return -1;
-
-
         }
+        // 调用 binarySearch 函数，查找数字 5 在数组 [5, 7, 4, 2, 9] 中的位置
         binarySearch(5, [5, 7, 4, 2, 9]);
+
     </script>
 </body>
 
