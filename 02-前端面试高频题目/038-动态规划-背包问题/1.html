@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // weights重量数组   values    W背包容量
+        /**
+  * 背包问题函数
+  * @param {Array} weight - 物品重量数组
+  * @param {Array} values - 物品价值数组
+  * @param {number} W - 背包的最大容量
+  * @returns {number} - 背包能装下的最大价值
+  */
+        function knapSack(weight, values, W) {
+            // 获取物品数量，减1是因为数组索引从0开始
+            var n = weight.length - 1;
+            // 初始化动态规划数组，第一维表示物品，第二维表示背包容量
+            var f = [[]];
+            // 初始化第一行，即背包容量为0时的最大价值
+            for (var j = 0; j <= W; j++) {
+                // 如果背包容量小于第一个物品的重量，那么最大价值为0
+                if (j < weight[0]) {
+                    f[0][j] = 0;
+                }
+                // 如果背包容量大于等于第一个物品的重量，那么最大价值为第一个物品的价值
+                else {
+                    f[0][j] = values[0];
+                }
+            }
+
+            // 外层循环遍历背包的所有可能容量，从0到W（包括W）
+            for (var j = 0; j <= W; j++) {
+                // 内层循环遍历每个物品，从第二个物品开始，因为第一个物品已经在初始化时处理过了
+                for (var i = 1; i <= n; i++) {
+                    // 如果动态规划数组的当前行还没有初始化，则初始化一个新的数组
+                    if (!f[i]) {
+                        f[i] = [];
+                    }
+                    // 如果当前背包容量小于当前物品的重量
+                    if (j < weight[i]) {
+                        // 当前物品不能放入背包，最大价值等于前一个物品在相同容量下的最大价值
+                        f[i][j] = f[i - 1][j];
+                    } else {
+                        // 当前物品可以放入背包，需要比较两种情况的价值：
+                        // 1. 不放入当前物品，价值等于前一个物品在相同容量下的最大价值
+                        // 2. 放入当前物品，价值等于前一个物品在剩余容量下的最大价值加上当前物品的价值
+                        // 取两者中的最大值作为当前物品在当前容量下的最大价值
+                        f[i][j] = Math.max(f[i - 1][j], f[i - 1][j - weight[i]] + values[i]);
+                    }
+                }
+            }
+            // 打印动态规划数组，用于调试
+            console.log(f);
+            // 返回背包能装下的最大价值，即动态规划数组的最后一个元素
+            return f[n][W];
+
+
+        }
+
+        console.log(knapSack([2, 2, 6, 5, 4], [6, 3, 5, 4, 6], 10))
+
+    </script>
+
+</body>
+
+</html>
