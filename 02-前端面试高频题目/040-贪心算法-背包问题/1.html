@@ -48,7 +48,18 @@
                     total += item.v;
                     capacity -= item.w;
                 } else if (capacity > 0) {
-                    var rate = c;
+                    var rate = capacity / item['w'];
+                    var v = item.v * rate;
+                    selects.push({
+                        num: item.num,
+                        rate,
+                        v: item.v * rate,
+                        w: item.w * rate
+                    });
+                    total += v;
+                    break;
+                } else {
+                    break;
                 }
             }
         }
