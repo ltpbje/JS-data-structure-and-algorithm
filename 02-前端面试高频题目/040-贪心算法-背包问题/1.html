@@ -34,34 +34,52 @@
             // 打印排序后的物品列表
             console.log(list);
 
+            // 用于存储已选择的物品
             var selects = [];
+            // 用于存储已选择物品的总价值
             var total = 0;
+            // 遍历排序后的物品列表
             for (var i = 0; i < list.length; i++) {
+                // 获取当前物品
                 var item = list[i];
+                // 如果当前物品的重量小于等于背包的剩余容量
                 if (item['w'] <= capacity) {
+                    // 将当前物品加入已选择列表
                     selects.push({
                         num: item.num,
                         rate: 1,
                         v: item.v,
                         w: item.w
                     });
+                    // 更新已选择物品的总价值
                     total += item.v;
+                    // 更新背包的剩余容量
                     capacity -= item.w;
                 } else if (capacity > 0) {
+                    // 如果当前物品的重量大于背包的剩余容量，但背包还有剩余容量
+                    // 计算当前物品可以放入背包的比例
                     var rate = capacity / item['w'];
+                    // 计算当前物品可以放入背包的价值
                     var v = item.v * rate;
+                    // 将当前物品的部分加入已选择列表
                     selects.push({
                         num: item.num,
                         rate,
                         v: item.v * rate,
                         w: item.w * rate
                     });
+                    // 更新已选择物品的总价值
                     total += v;
+                    // 背包已满，结束循环
                     break;
                 } else {
+                    // 如果背包没有剩余容量，结束循环
                     break;
                 }
             }
+            // 打印已选择的物品列表和总价值
+            console.log(selects, total);
+
         }
     </script>
 </body>
