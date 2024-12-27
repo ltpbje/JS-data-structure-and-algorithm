@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+ * 计算两个字符串的最长公共子序列
+ * @param {string} str1 - 第一个字符串
+ * @param {string} str2 - 第二个字符串
+ * @returns {number} - 最长公共子序列的长度
+ */
+        function LCS(str1, str2) {
+            // 获取第一个字符串的长度
+            var m = str1.length;
+            // 获取第二个字符串的长度
+            var n = str2.length;
+            // 初始化动态规划数组，第一维表示第一个字符串的字符位置，第二维表示第二个字符串的字符位置
+            var dp = [new Array(n + 1).fill(0)];
+            // 遍历第一个字符串的每个字符
+            for (var i = 1; i <= m; i++) {
+                // 初始化当前行的动态规划数组
+                dp[i] = [0];
+                // 遍历第二个字符串的每个字符
+                for (var j = 1; j <= n; j++) {
+                    // 如果当前字符相同
+                    if (str1[i - 1] === str2[j - 1]) {
+                        // 当前位置的最长公共子序列长度为左上角位置的值加1
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        // 如果当前字符不同，取上方和左方的最大值
+                        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    }
+                }
+            }
+            // 根据动态规划数组生成最长公共子序列
+            var res = printLCS(dp, str1, str2, m, n);
+            // 打印最长公共子序列
+            console.log(res);
+            // 返回最长公共子序列的长度
+            return dp[m][n];
+        }
+
+        /**
+         * 根据动态规划数组生成最长公共子序列
+         * @param {Array} dp - 动态规划数组
+         * @param {string} str1 - 第一个字符串
+         * @param {string} str2 - 第二个字符串
+         * @param {number} i - 当前处理的第一个字符串的字符位置
+         * @param {number} j - 当前处理的第二个字符串的字符位置
+         * @returns {string} - 最长公共子序列
+         */
+        function printLCS(dp, str1, str2, i, j) {
+            // 如果已经处理完第一个字符串或第二个字符串，返回空字符串
+            if (i === 0 || j === 0) {
+                return '';
+            }
+            // 如果当前字符相同，将当前字符添加到最长公共子序列中
+            if (str1[i - 1] === str2[j - 1]) {
+                return printLCS(dp, str1, str2, i - 1, j - 1) + str1[i - 1];
+            } else {
+                // 如果当前字符不同，比较上方和左方的值，取较大值对应的位置继续递归
+                if (dp[i][j - 1] > dp[i - 1][j]) {
+                    return printLCS(dp, str1, str2, i, j - 1);
+                } else {
+                    return printLCS(dp, str1, str2, i - 1, j);
+                }
+            }
+        }
+
+        LCS("abcadf", "acbaed");
+    </script>
+</body>
+
+</html>

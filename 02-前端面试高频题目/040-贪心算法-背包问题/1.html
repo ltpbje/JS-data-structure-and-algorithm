@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        tanxin(10, [2, 2, 6, 5, 4], [6, 3, 5, 4, 6]);
+        /**
+ * 贪心算法解决背包问题
+ * @param {number} capacity - 背包的容量
+ * @param {number[]} weights - 物品的重量数组
+ * @param {number[]} values - 物品的价值数组
+ */
+        function tanxin(capacity, weights, values) {
+            // 用于存储每个物品的信息
+            var list = [];
+            // 遍历物品的重量数组
+            for (var i = 0; i < weights.length; i++) {
+                // 将每个物品的编号、重量、价值和性价比存储到列表中
+                list.push({
+                    num: i + 1,
+                    w: weights[i],
+                    v: values[i],
+                    rate: values[i] / weights[i]
+                });
+            }
+            // 根据性价比对物品进行降序排序
+            list.sort((a, b) => b.rate - a.rate);
+            // 打印排序后的物品列表
+            console.log(list);
+
+            var selects = [];
+            var total = 0;
+            for (var i = 0; i < list.length; i++) {
+                var item = list[i];
+                if (item['w'] <= capacity) {
+                    selects.push({
+                        num: item.num,
+                        rate: 1,
+                        v: item.v,
+                        w: item.w
+                    });
+                    total += item.v;
+                    capacity -= item.w;
+                } else if (capacity > 0) {
+                    var rate = c;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
