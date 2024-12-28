@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src='./kerwinPromise.js'></script>
+    <script>
+        var p = new KerwinPromise((reslove, reject) => {
+            reslove('11');
+        });
+        p.then(res => {
+            console.log('success', res);
+        }, error => {
+            console.log('fail', error);
+        })
+    </script>
+</body>
+
+</html>
