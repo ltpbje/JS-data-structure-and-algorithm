@@ -13,15 +13,20 @@
         var p = new KerwinPromise((reslove, reject) => {
             setTimeout(() => {
                 reslove('11');
-                reject('22');
             }, 1000);
         });
         p.then(res => {
             console.log('success1', res);
+            // return '222';
+            return new KerwinPromise((reslove, reject) => {
+                setTimeout(() => {
+                    reslove('11');
+                }, 1000);
+            });
         }, error => {
             console.log('fail1', error);
-        });
-        p.then(res => {
+            return 'test';
+        }).then(res => {
             console.log('success2', res);
         }, error => {
             console.log('fail2', error);

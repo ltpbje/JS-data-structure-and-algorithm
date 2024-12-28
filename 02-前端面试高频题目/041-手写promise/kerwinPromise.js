@@ -26,13 +26,61 @@ function KerwinPromise(executor) {
 }
 
 KerwinPromise.prototype.then = function (successCB, failCB) {
-    if (this.status === 'fulfilled') {
-        successCB && successCB(this.result);
-    }
-    if (this.status === 'rejected') {
-        failCB && failCB(this.result);
-    }
-    if (this.status === 'pending') {
-        this.cb.push({ successCB, failCB });
-    }
+    return new KerwinPromise((reslove, reject) => {
+        if (this.status === 'fulfilled') {
+            var result = successCB && successCB(this.result);
+            if (result instanceof KerwinPromise) {
+                result.then((res) => {
+                    reslove(res);
+                }, err => {
+                    reject(err);
+                });
+            } else {
+                reslove(result);
+            };
+        }
+        if (this.status === 'rejected') {
+
+            failCB && failCB(this.result);
+            var result = failCB && failCB(this.result);
+            if (result instanceof KerwinPromise) {
+                result.then((res) => {
+                    reslove(res);
+                }, err => {
+                    reject(err);
+                });
+            } else {
+                reslove(result);
+            };
+        }
+        if (this.status === 'pending') {
+            this.cb.push({
+                successCB: () => {
+                    var result = successCB && successCB(this.result);
+                    if (result instanceof KerwinPromise) {
+                        result.then((res) => {
+                            reslove(res);
+                        }, err => {
+                            reject(err);
+                        });
+                    } else {
+                        reslove(result);
+                    };
+                },
+                failCB: () => {
+                    var result = failCB && failCB(this.result);
+                    if (result instanceof KerwinPromise) {
+                        result.then((res) => {
+                            reslove(res);
+                        }, err => {
+                            reject(err);
+                        });
+                    } else {
+                        reslove(result);
+                    };
+                }
+            });
+        }
+
+    });
 };
