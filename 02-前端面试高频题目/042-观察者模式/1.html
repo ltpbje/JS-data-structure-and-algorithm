@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Subject {
+            constructor() {
+                this.observers = [];
+            }
+            add(observer) {
+                this.observers.push(observer);
+            }
+            // remove(o)
+            notify() {
+                this.observers.forEach(item => item.update());
+            }
+            remove(observer) {
+                this.observers = this.observers.filter(item => item !== observer);
+            }
+        }
+        class Observer {
+            constructor(name) {
+                this.name = name;
+            }
+            update() {
+                console.log('update', this.name);
+            }
+
+        }
+        const subject = new Subject();
+        const observer1 = new Observer('kerwin');
+        const observer2 = new Observer('tiechui');
+        subject.add(observer1);
+        subject.add(observer2);
+        setTimeout(() => {
+            subject.remove(observer1);
+        }, 1000);
+        setTimeout(() => {
+            subject.notify();
+            console.log(subject);
+
+        }, 2000)
+    </script>
+</body>
+
+</html>
