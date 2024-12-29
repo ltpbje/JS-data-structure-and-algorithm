@@ -26,6 +26,12 @@ function KerwinPromise(executor) {
 }
 
 KerwinPromise.prototype.then = function (successCB, failCB) {
+    if (!successCB) {
+        successCB = value => value;
+    }
+    if (!failCB) {
+        failCB = error => error;
+    }
     return new KerwinPromise((reslove, reject) => {
         if (this.status === 'fulfilled') {
             var result = successCB && successCB(this.result);
@@ -50,7 +56,7 @@ KerwinPromise.prototype.then = function (successCB, failCB) {
                     reject(err);
                 });
             } else {
-                reslove(result);
+                reject(result);
             };
         }
         if (this.status === 'pending') {
@@ -76,11 +82,14 @@ KerwinPromise.prototype.then = function (successCB, failCB) {
                             reject(err);
                         });
                     } else {
-                        reslove(result);
+                        reject(result);
                     };
                 }
             });
         }
 
     });
+};
+KerwinPromise.prototype.catch = function (failCB) {
+    this.then(undefined, failCB);
 };

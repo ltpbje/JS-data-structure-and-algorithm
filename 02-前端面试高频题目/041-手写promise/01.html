@@ -13,24 +13,31 @@
         var p = new KerwinPromise((reslove, reject) => {
             setTimeout(() => {
                 reslove('11');
+                // console.log(1);
+
             }, 1000);
         });
         p.then(res => {
             console.log('success1', res);
-            // return '222';
-            return new KerwinPromise((reslove, reject) => {
-                setTimeout(() => {
-                    reslove('11');
-                }, 1000);
-            });
-        }, error => {
-            console.log('fail1', error);
-            return 'test';
+            // // return '222';
+            // return new KerwinPromise((reslove, reject) => {
+            //     setTimeout(() => {
+            //         reject('11');
+            //     }, 1000);
+            // });
         }).then(res => {
             console.log('success2', res);
-        }, error => {
+
+            // // return '222';
+            return new KerwinPromise((reslove, reject) => {
+                setTimeout(() => {
+                    reject('11');
+                }, 1000);
+            });
+        }).catch(error => {
             console.log('fail2', error);
         })
+
 
     </script>
 </body>
