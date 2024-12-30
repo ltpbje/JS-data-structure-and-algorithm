@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header">路径</div>
+    <div class="box">
+        <div class="left">
+            <ul>
+                <li>首页</li>
+                <li>用户管理</li>
+                <li>权限管理</li>
+                <li>新闻管理</li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="bread"></div>
+        </div>
+    </div>
+    <script>
+        let oli = document.querySelectorAll('.left li');
+        const PubSub = {
+            message: {},
+            publish(type, data) {
+                if (!this.message[type]) return;
+                this.message[type].forEach(item => item(data));
+            },
+            subscribe(type, cb) {
+                if (!this.message[type]) {
+                    this.message[type] = [cb];
+                } else {
+                    this.message[type].push(cb);
+                }
+            },
+            unSubscribe(type, cb) {
+                if (!this.message[type]) return;
+                if (!cb) {
+                    this.message[type] && (this.message[type].length = 0);
+                } else {
+                    this.message[type] = this.message[type].filter(item => item !== cb);
+                }
+            },
+        };
+        PubSub.subscribe('UpdateBread', function (data) {
+            document.querySelector('.bread').innerHTML = data;
+        });
+        for (let i = 0; i < oli.length; i++) {
+            oli[i].onclick = function () {
+                PubSub.publish("UpdateBread", this.innerHTML);
+            };
+        }
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box {
+            width: 100vw;
+            height: 500px;
+            display: flex;
+        }
+
+        .left {
+            width: 30%;
+            background-color: skyblue;
+        }
+
+        .right {
+            flex: 1;
+            background-color: yellow;
+        }
+    </style>
+</body>
+
+</html>

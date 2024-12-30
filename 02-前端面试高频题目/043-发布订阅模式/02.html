@@ -11,8 +11,9 @@
     <script>
         const PubSub = {
             message: {},
-            publish() {
-                this.list.forEach(item => item());
+            publish(type, data) {
+                if (!this.message[type]) return;
+                this.message[type].forEach(item => item(data));
             },
             subscribe(type, cb) {
                 if (!this.message[type]) {
@@ -20,17 +21,30 @@
                 } else {
                     this.message[type].push(cb);
                 }
-            }
+            },
+            unSubscribe(type, cb) {
+                if (!this.message[type]) return;
+                if (!cb) {
+                    this.message[type] && (this.message[type].length = 0);
+                } else {
+                    this.message[type] = this.message[type].filter(item => item !== cb);
+                }
+            },
         };
-        function testA() {
-            console.log('testA');
+        function testA(data) {
+            console.log('testA', data);
         }
-        function testB() {
-            console.log('testB');
+        function testB(data) {
+            console.log('testB', data);
         }
-        PubSub.subscribe(testA);
-        PubSub.subscribe(testB);
-        PubSub.publish()
+        function testC(data) {
+            console.log('testC', data);
+        }
+        PubSub.subscribe('A', testA);
+        PubSub.subscribe('A', testC);
+        PubSub.subscribe('B', testB);
+        PubSub.publish('A', '111');
+        PubSub.publish('B', '111');
     </script>
 </body>
 

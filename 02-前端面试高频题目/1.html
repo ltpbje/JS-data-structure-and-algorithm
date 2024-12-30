@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 手写代码，监测数组变化，并返回数组长度
+
+        // 获取Array的原型，并创建一个新的对象指向这个原型
+        // const arrayMethods = Object.create(Array.prototype)
+
+        // 创建一个新的原型，这就是改造之后的数组原型
+        const ArrayProto = [];
+
+        // 重新构建Array原型里面的所有方法
+        Object.getOwnPropertyNames(Array.prototype).forEach(method => {
+            // 检查方法是否为函数类型
+            if (typeof Array.prototype[method] === "function") {
+                // 重写数组方法，添加监听逻辑
+                ArrayProto[method] = function () {
+                    // 打印出数组触发的事件
+                    console.log("我已经监听到数组触发了" + method + "事件");
+                    // 获取当前数组的长度
+                    let len = this.length;
+                    // 调用原始数组方法，并传递参数
+                    let result = Array.prototype[method].apply(this, arguments);
+                    // 打印出数组长度的变化
+                    console.log(len, this.length);
+                    // 如果数组长度发生变化，返回新的长度
+                    if (len !== this.length) return this.length;
+                    // 否则返回原始方法的结果
+                    return result;
+                };
+            }
+        });
+
+        // 创建一个示例数组
+        let list = [1, 2, 3];
+        // 将数组的原型链指向新构造的原型
+        list.__proto__ = ArrayProto;
+
+        // 执行push事件，并打印返回值
+        console.log(list.push(2), list.pop(2), list.slice(2), list.unshift(2));
+
+    </script>
+</body>
+
+</html>
