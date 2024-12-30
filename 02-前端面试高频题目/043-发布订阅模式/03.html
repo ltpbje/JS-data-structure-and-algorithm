@@ -23,37 +23,53 @@
         </div>
     </div>
     <script>
+        // 选择所有左侧导航栏的li元素
         let oli = document.querySelectorAll('.left li');
+        // 定义一个发布订阅对象
         const PubSub = {
+            // 存储所有订阅的消息及其对应的回调函数
             message: {},
+            // 发布消息的方法，type为消息类型，data为传递的数据
             publish(type, data) {
+                // 如果没有订阅该类型的消息，则直接返回
                 if (!this.message[type]) return;
+                // 遍历该类型消息的所有订阅者，并执行其回调函数
                 this.message[type].forEach(item => item(data));
             },
+            // 订阅消息的方法，type为消息类型，cb为回调函数
             subscribe(type, cb) {
+                // 如果该类型的消息不存在，则创建一个新的数组来存储回调函数
                 if (!this.message[type]) {
                     this.message[type] = [cb];
+                    // 如果该类型的消息已经存在，则将回调函数添加到数组中
                 } else {
                     this.message[type].push(cb);
                 }
             },
+            // 取消订阅消息的方法，type为消息类型，cb为要取消的回调函数
             unSubscribe(type, cb) {
+                // 如果没有订阅该类型的消息，则直接返回
                 if (!this.message[type]) return;
+                // 如果没有指定要取消的回调函数，则清空该类型消息的所有订阅者
                 if (!cb) {
                     this.message[type] && (this.message[type].length = 0);
+                    // 如果指定了要取消的回调函数，则从数组中移除该回调函数
                 } else {
                     this.message[type] = this.message[type].filter(item => item !== cb);
                 }
             },
         };
+        // 订阅名为'UpdateBread'的消息，当该消息发布时，更新面包屑导航的内容
         PubSub.subscribe('UpdateBread', function (data) {
             document.querySelector('.bread').innerHTML = data;
         });
+        // 为每个左侧导航栏的li元素添加点击事件，点击时发布名为'UpdateBread'的消息，消息内容为当前li元素的文本内容
         for (let i = 0; i < oli.length; i++) {
             oli[i].onclick = function () {
                 PubSub.publish("UpdateBread", this.innerHTML);
             };
         }
+
     </script>
     <style>
         * {
