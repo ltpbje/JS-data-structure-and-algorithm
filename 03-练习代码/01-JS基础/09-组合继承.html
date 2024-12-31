@@ -33,10 +33,13 @@
             Person.apply(this, [name, age]);
             this.className = className;
         }
+        Student.prototype = new Person();
         Student.prototype.study = function () {
             console.log('学习');
         };
         const stu = new Student('zs', 10, '80期');
+        stu.sayHi();
+
 
     </script>
 </body>
