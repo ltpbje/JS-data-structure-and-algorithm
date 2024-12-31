@@ -21,15 +21,23 @@
             console.log('会说话');
 
         };
+        // function Student(className, ...arg) {
+        //     console.log(...arg);
+
+        //     Person.apply(this, [...arg]);
+        //     this.className = className;
+        // }
+        // Student.prototype = new Person();
+
         function Student(name, age, className) {
-            this.name = name;
-            this.age = age;
+            Person.apply(this, [name, age]);
             this.className = className;
         }
-        Student.prototype = new Person();
         Student.prototype.study = function () {
             console.log('学习');
         };
+        const stu = new Student('zs', 10, '80期');
+
     </script>
 </body>
 
