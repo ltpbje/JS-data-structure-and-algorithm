@@ -9,30 +9,20 @@
 
 <body>
     <script>
-        // 定义一个构造函数Person，用于创建具有name和age属性的对象
         function Person(name, age) {
-            // 将传入的name参数赋值给当前对象的name属性
             this.name = name;
-            // 将传入的age参数赋值给当前对象的age属性
             this.age = age;
         }
-        // 在Person的原型对象上添加一个方法sayHi，用于在控制台输出'会说话'
         Person.prototype.sayHi = function () {
             console.log('会说话');
 
         };
-        // 定义一个构造函数Student，用于创建具有name、age和className属性的对象
         function Student(name, age, className) {
-            // 将传入的name参数赋值给当前对象的name属性
             this.name = name;
-            // 将传入的age参数赋值给当前对象的age属性
             this.age = age;
-            // 将传入的className参数赋值给当前对象的className属性
             this.className = className;
         }
-        // 将Student的原型对象设置为一个新的Person对象，实现原型继承
         Student.prototype = new Person();
-        // 在Student的原型对象上添加一个方法study，用于在控制台输出'学习'
         Student.prototype.study = function () {
             console.log('学习');
         };
