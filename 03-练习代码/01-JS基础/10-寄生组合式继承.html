@@ -9,6 +9,40 @@
 
 <body>
     <script>
+        // 定义一个构造函数Person，用于创建具有name和age属性的对象
+        function Person(name, age) {
+            // 将传入的name参数赋值给当前对象的name属性
+            this.name = name;
+            // 将传入的age参数赋值给当前对象的age属性
+            this.age = age;
+            // 定义一个名为sayHello的函数，用于在控制台输出1
+            sayHello = function () {
+                console.log(1);
+
+            };
+        }
+
+        Person.prototype.sayHi = function () {
+            console.log('会说话');
+
+        };
+
+        function Student(name, age, className) {
+            Person.apply(this, [name, age]);
+            this.className = className;
+        }
+        console.log(Object.create(Person.prototype));
+
+        // 利用Object.create 避免继承Person上的无用的属性
+        Student.prototype = Object.create(Person.prototype);
+        Student.prototype.study = function () {
+            console.log('学习');
+        };
+        const stu = new Student('zs', 10, '80期');
+        stu.sayHi();
+        console.log(stu);
+
+        stu.sayHello();
 
     </script>
 </body>

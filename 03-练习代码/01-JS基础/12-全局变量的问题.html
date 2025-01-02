@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="button" value="btn" id="btn1" />
+    <input type="button" value="btn" id="btn2" />
+    <input type="button" value="btn" id="btn3" />
+    <input type="button" value="btn" id="btn4" />
+    <script>
+        //     1、全局变量查找比较消耗时间;
+        //     2、全局变量一直存储在内存中，降低了内存的使用。
+        //     3、局部变量与全局变量重名的问题。
+
+
+        function fn() {
+            const d = document;
+            // 将全局变量缓存到局部变量中
+            // 减少内存的占用
+            d.getElementById('btn1').onclick = function () { };
+            d.getElementById('btn2').onclick = function () { };
+            d.getElementById('btn3').onclick = function () { };
+            d.getElementById('btn4').onclick = function () { };
+        };
+    </script>
+</body>
+
+</html>
