@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script> //宏任务1
+    console.log('脚本1', 1);
+
+    setTimeout(function () {
+      console.log('脚本1', 2);
+    }, 0);
+    const p1 = new Promise((resolve, reject) => {
+      resolve(999);
+    });
+    p1.then(data => {
+      console.log(data);
+    });
+    console.log('脚本1', 3) 
+  </script>
+
+  <script>//宏任务2
+    console.log('脚本2', 2);
+    setTimeout(function () {
+      console.log('脚本2', 500);
+    }, 1000);
+    const p2 = new Promise((resolve, reject) => {
+      resolve(1000);
+    });
+    p2.then(data => {
+      console.log(data);
+    });
+    console.log('脚本2', 4);
+
+  </script>
+</body>
+
+</html>
