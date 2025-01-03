@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 引用计数 垃圾回收机制
+        function cycle() {
+            let o1 = {};
+            let o2 = {};
+            //  此处o2 被o1.a 引用 
+            //  此处o1 被o2.a 引用 
+            // 导致 o1 和o2所指向的存储在堆中 的数据 无法被释放 
+
+            o1.a = o2;
+            o2.a = o1;
+        }
+        cycle();
+
+        //标记清除法：
+        //从js根部（全局对象），出发，能够访问到的对象，普通变量，函数等，都是需要用的，不会释放
+        //但是如果从js根部，无法访问到，无法触及（谁都找不到这块空间），这块空间就是垃圾，需要被回收
+    </script>
+</body>
+
+</html>

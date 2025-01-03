@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 每个组件都需要有自己独立的数据，互相不影响的，每次初始化组件，会去执行data函数，;
+        // 都会将data函数的返回值，作为组件的数据对象
+        // data() {
+        //     let num = 1;
+        //     return {
+        //         desc: '不错'
+        //     };
+        // }
+
+
+        //一个函数，有着一个函数作用域，在函数内声明的变量，外部无法直接访问的
+        //全局作用域，局部作用域
+        let num = 100;
+        function fn() {
+            let age = 18;
+            let obj = {};
+            return obj;
+        }
+        const obj1 = fn();
+        const obj2 = fn();
+        console.log(obj1);
+        console.log(obj2);
+        console.log(obj1 === obj2);
+        console.log(age);
+
+    </script>
+</body>
+
+</html>
