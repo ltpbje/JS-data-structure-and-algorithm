@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function fn() {
+            console.log('嘿嘿');
+            // await 后的函数fn1是立刻执行的 
+            const res = await fn1();
+            console.log(res);
+        }
+        async function fn1() {
+            console.log('gaga');
+            return 100;
+        }
+        fn();
+        console.log(2222);
+
+        /**
+         * 执行顺序
+         * '嘿嘿'
+            'gaga'
+             2222
+             100
+        **/
+    </script>
+</body>
+
+</html>
