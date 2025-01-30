@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        function New() {
+            var obj = {};
+            var res = Person.apply(obj, arguments);
+            return typeof res === "object" ? res : obj;
+        }
+        console.log(New("zhangsan", 19));
+    </script>
+</body>
+
+</html>
